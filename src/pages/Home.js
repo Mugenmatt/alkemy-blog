@@ -21,7 +21,7 @@ const Home = (props) => {
                     posts.map((post) => {
                         return <ListItem key={post.id}>
                             <ListItemContainer>
-                                <Link to={`/detail`} style={{ textDecoration: 'none' }}>
+                                <Link to={`/detail/${post.id}`} style={{ textDecoration: 'none' }}>
                                     <ListTitle>{post.title}</ListTitle>
                                 </Link>
                                 <FormDelete method='post'>

@@ -36,6 +36,8 @@ export const ListItemContainer = styled.div`
 export const ListTitle = styled.p`
     font-size: 1em;
     text-align: center;
+    color: #000;
+    font-weight: bold;
 `;
 
 export const FormDelete = styled.form`
@@ -46,7 +48,6 @@ export const FormDelete = styled.form`
 export const DeleteBtn = styled.input`
     padding: 10px;
     font-size: 1em;
-    font-weight: bold;
     border: 1px solid #000;
     border-radius: 10px;
     margin-top: 10%;
@@ -55,6 +56,7 @@ export const DeleteBtn = styled.input`
     :hover {
         color: red;
         border: 1px solid red;
+        font-weight: bold;
     }
 `;
 

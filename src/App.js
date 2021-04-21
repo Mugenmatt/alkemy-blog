@@ -14,18 +14,16 @@ const App = () => {
   const [posts, setPosts] = useState([]);
   
   useEffect(() => {
-    try{
-
-      async function fetchPosts() {
+    async function fetchPosts() {
+      try{  
         const fetchData = await fetch('https://jsonplaceholder.typicode.com/posts');
         const fetchJson = await fetchData.json();
-        console.log(fetchJson);
         setPosts(fetchJson);
+      } catch {
+        console.log('ERROR!');
       }
-      fetchPosts()
-    } catch {
-      console.log('ERROR: ');
     }
+    fetchPosts()
   }, [])
 
   return (
@@ -35,7 +33,7 @@ const App = () => {
           <Route exact path='/'>
             <Home posts={posts} />
           </Route>
-          <Route path='/detail' component={Detail} />
+          <Route path='/detail/:id' component={Detail} />
           <Route path='/create-post' component={CreatePost} />
           <Route path='/edit-post' component={EditPost} />
         </Switch>
