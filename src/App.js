@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import Detail from './pages/Detail';
 import CreatePost from './pages/CreatePost';
 import EditPost from './pages/EditPost';
+import Error from './pages/Error';
 
 const App = () => {
   const [posts, setPosts] = useState([]);
@@ -36,6 +37,7 @@ const App = () => {
           <Route path='/detail/:id' component={Detail} />
           <Route path='/create-post' component={CreatePost} />
           <Route path='/edit-post' component={EditPost} />
+          <Route component={Error} />
         </Switch>
       </Router>
     </Background>
