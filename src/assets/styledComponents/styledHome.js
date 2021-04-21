@@ -7,7 +7,7 @@ export const HomeContainer = styled.div`
 export const HomeTitle = styled.h1`
     color: #fff;
     text-align: center;
-    font-size: 3em;
+    font-size: 5em;
     font-weight: lighter;
     margin-bottom: 5%;
 `;
