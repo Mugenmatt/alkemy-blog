@@ -1,5 +1,4 @@
 import {useState, useEffect, useRef} from 'react';
-import { Link } from 'react-router-dom';
 import {
     DetailContainer,
     DetailPageTitle,
@@ -7,7 +6,6 @@ import {
     PostDetailTitle,
     PostDetailBody,
     Lottie,
-    GoBack
 } from '../assets/styledComponents/styledDetail'
 
 import lottie from 'lottie-web';
@@ -35,9 +33,9 @@ const Detail = (props) => {
     }
  
     useEffect(() => {
-        async function fetchIdPost() {
+            setFetchIsDone(true)
+            async function fetchIdPost() {
             try{
-                setFetchIsDone(true)
                 const fetchData = await fetch(`https://jsonplaceholder.typicode.com/posts/${idPost}`);
                 const fetchJson = await fetchData.json();
                 setSelectedPost(fetchJson);
@@ -48,7 +46,7 @@ const Detail = (props) => {
             }
         }
         fetchIdPost();
-    }, [])
+    }, [idPost])
 
 
     return (
@@ -59,11 +57,8 @@ const Detail = (props) => {
             : <PostContainer>
                     <PostDetailTitle> { selectedPost.title } </PostDetailTitle>
                     <PostDetailBody> { selectedPost.body } </PostDetailBody>
-                </PostContainer>
+            </PostContainer>
             }
-            <Link to='/' style={{ textDecoration:'none' }} >
-                <GoBack type='button' value='Back' />
-            </Link>
         </DetailContainer>
     );
 };

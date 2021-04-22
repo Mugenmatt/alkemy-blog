@@ -4,21 +4,26 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-import { Background } from './assets/styledComponents/styledApp'
+import { MainBackground } from './assets/styledComponents/styledApp'
+import Header from './assets/components/Header';
 import Home from './pages/Home';
 import Detail from './pages/Detail';
 import CreatePost from './pages/CreatePost';
 import EditPost from './pages/EditPost';
 import Error from './pages/Error';
 
+
 const App = () => {
   const [posts, setPosts] = useState([]);
-  
+  const [ deletingPost, setDeletingPost ] = useState(false);
+
+  const url = 'https://jsonplaceholder.typicode.com/posts';
+
   useEffect(() => {
     async function fetchPosts() {
       try{  
-        const fetchData = await fetch('https://jsonplaceholder.typicode.com/posts');
-        const fetchJson = await fetchData.json();
+        let fetchData = await fetch(url);
+        let fetchJson = await fetchData.json();
         setPosts(fetchJson);
       } catch {
         console.log('ERROR!');
@@ -27,20 +32,44 @@ const App = () => {
     fetchPosts()
   }, [])
 
+  const handleDeletePost = (id) => {
+      setDeletingPost(true)
+      fetch(`${url}/${id}`, {method:'DELETE'})
+      .then((data) => data.json())
+      .then((res) => {
+          console.log(res);
+          // let newPosts = posts.filter(post => {
+          //   return post.id !== res.id;
+          // })
+          // setPosts(newPosts)
+      })
+      .catch((error) => {
+          console.log('ERROR: ' + error);
+      })
+  }
+
   return (
-    <Background>
-      <Router>
-        <Switch>
-          <Route exact path='/'>
-            <Home posts={posts} />
-          </Route>
-          <Route path='/detail/:id' component={Detail} />
-          <Route path='/create-post' component={CreatePost} />
-          <Route path='/edit-post' component={EditPost} />
-          <Route component={Error} />
-        </Switch>
-      </Router>
-    </Background>
+    <Router>
+      <Header />
+      <MainBackground>
+          <Switch>
+            <Route exact path='/'>
+              <Home 
+                posts={posts} 
+                setPosts={setPosts}
+                handleDeletePost={handleDeletePost}
+                deletingPost={deletingPost}
+              />
+            </Route>
+            <Route path='/detail/:id' component={Detail} />
+            <Route path='/create-post' component={() => {
+              return <CreatePost posts={posts} setPosts={setPosts} />
+            }} />
+            <Route path='/edit-post/:id' component={EditPost} />
+            <Route component={Error} />
+          </Switch>
+      </MainBackground>
+    </Router>
   );
 }
 

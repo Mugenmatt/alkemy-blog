@@ -5,7 +5,8 @@ export const DetailContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-items: center;
+    text-align: center;
 `;
 
 export const DetailPageTitle = styled.h1`
@@ -14,35 +15,32 @@ export const DetailPageTitle = styled.h1`
     font-size: 3em;
     font-weight: lighter;
     margin-bottom: 5%;
+    @media (max-width: 375px) {
+        font-size: 1.5em;
+    }
 `;
+
 export const PostContainer = styled.div`
-    width: 80%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    text-align: center;
 `;
+
 export const PostDetailTitle = styled.h3`
     font-size: 2.4em;
     margin-bottom: 5%;
 `;
+
 export const PostDetailBody = styled.blockquote`
     font-size: 1.7em;
+    line-height: 50px;
     font-style: italic;
     font-weight: lighter;
     color: #fff;
     margin-bottom: 5%;
-`;
-export const GoBack = styled.input`
-    padding: 10px;
-    border-radius: 10px;
-    font-size: 1.5em;
-    border: 1px solid #000;
-    cursor: pointer;
-    :hover {
-        color: #fff;
-        background-color: #000;
-        font-weight: bolder;
+    @media (max-width: 1199.98px) {
+        font-size: 2em;
+    }
+    @media (max-width: 375px) {
+        font-size: 1.5em;
     }
 `;
 

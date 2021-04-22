@@ -1,4 +1,4 @@
-import React from 'react';
+// import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
     HomeContainer,
@@ -7,15 +7,18 @@ import {
     ListItem,
     ListItemContainer,
     ListTitle,
-    FormDelete,
+    PostOptions,
+    EditBtn,
     DeleteBtn
 } from '../assets/styledComponents/styledHome';
 
 const Home = (props) => {
-    const { posts } = props;
+    const { posts, handleDeletePost } = props;
+
     return (
         <HomeContainer>
             <HomeTitle>Posts</HomeTitle>
+            
             <List>
                 {
                     posts.map((post) => {
@@ -24,9 +27,14 @@ const Home = (props) => {
                                 <Link to={`/detail/${post.id}`} style={{ textDecoration: 'none' }}>
                                     <ListTitle>{post.title}</ListTitle>
                                 </Link>
-                                <FormDelete method='post'>
-                                    <DeleteBtn type='submit' value='Delete' />
-                                </FormDelete>
+                                <PostOptions>
+                                    <Link to={`/edit-post/${post.id}`} style={{textDecoration: 'none', color: '#000'}} >
+                                        <EditBtn type='button' value='Edit' />
+                                    </Link>
+                                    <form method='DELETE'>
+                                        <DeleteBtn type='button' value='Delete' onClick={() => handleDeletePost(post.id)} />
+                                    </form>
+                                </PostOptions>
                             </ListItemContainer>
                         </ListItem>
                     })
