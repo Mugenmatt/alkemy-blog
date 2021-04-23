@@ -51,9 +51,9 @@ const App = () => {
 
             <Route path='/edit-user/:id' component={EditUser} />
 
+            <Route component={Error} />
           </UserContext.Provider>
 
-            <Route component={Error} />
 
           </Switch>
       </MainBackground>
