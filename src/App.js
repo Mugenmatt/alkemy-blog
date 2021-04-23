@@ -39,11 +39,11 @@ const App = () => {
     <Router>
       <Header />
       <MainBackground>
-          <Switch>
 
           <UserContext.Provider value={{users, setUsers, completeData, setCompleteData}}>
+          <Switch>
 
-            <Route exact path='/' component={Home} />
+            <Route path='/' exact component={Home} />
 
             <Route path='/detail/:id' component={Detail} />
 
@@ -52,10 +52,12 @@ const App = () => {
             <Route path='/edit-user/:id' component={EditUser} />
 
             <Route component={Error} />
+            </Switch>
+
           </UserContext.Provider>
 
 
-          </Switch>
+
       </MainBackground>
     </Router>
   );

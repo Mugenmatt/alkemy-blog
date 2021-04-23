@@ -16,6 +16,7 @@ const Error = () => {
             name: "404Error",
         })
     }, [])
+    
     return (
         <ErrorContainer>
             <ErrorMsg>Oops! Page not found!</ErrorMsg>
