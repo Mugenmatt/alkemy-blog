@@ -29,6 +29,12 @@ export const PostDetailTitle = styled.h3`
     margin-bottom: 5%;
 `;
 
+export const ImgUser = styled.img`
+    margin-bottom: 8%;
+    border-radius: 10px;
+    width: 70%;
+`;
+
 export const PostDetailBody = styled.blockquote`
     font-size: 1.7em;
     line-height: 50px;

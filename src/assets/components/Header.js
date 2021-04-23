@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
     HeaderContainer,
@@ -17,8 +16,8 @@ const Header = () => {
                 <LinkBtn type='button' value='Home' />
             </Link>
             :
-            <Link style={{textDecoration:'none', color:'#000'}} to='/create-post'>
-                <LinkBtn type='button' value='New Post' />
+            <Link style={{textDecoration:'none', color:'#000'}} to='/create-user'>
+                <LinkBtn type='button' value='Add User' />
             </Link>
             }
         </HeaderContainer>

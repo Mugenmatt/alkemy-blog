@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react'
+import { UserContext } from './assets/utils/UserContext';
 import {
   BrowserRouter as Router,
   Switch,
@@ -8,65 +9,52 @@ import { MainBackground } from './assets/styledComponents/styledApp'
 import Header from './assets/components/Header';
 import Home from './pages/Home';
 import Detail from './pages/Detail';
-import CreatePost from './pages/CreatePost';
-import EditPost from './pages/EditPost';
+import CreateUser from './pages/CreateUser';
+import EditUser from './pages/EditUser';
 import Error from './pages/Error';
 
 
 const App = () => {
-  const [posts, setPosts] = useState([]);
-  const [ deletingPost, setDeletingPost ] = useState(false);
+  const [users, setUsers] = useState([]);
+  const [completeData, setCompleteData] = useState([]);
 
-  const url = 'https://jsonplaceholder.typicode.com/posts';
+  const url = 'https://reqres.in/api/users?page=2';
 
   useEffect(() => {
-    async function fetchPosts() {
+    async function fetchUsers() {
       try{  
         let fetchData = await fetch(url);
         let fetchJson = await fetchData.json();
-        setPosts(fetchJson);
+        const usersData = fetchJson.data;
+        setCompleteData(fetchJson);
+        setUsers(usersData);
       } catch {
         console.log('ERROR!');
       }
     }
-    fetchPosts()
+    fetchUsers()
   }, [])
-
-  const handleDeletePost = (id) => {
-      setDeletingPost(true)
-      fetch(`${url}/${id}`, {method:'DELETE'})
-      .then((data) => data.json())
-      .then((res) => {
-          console.log(res);
-          // let newPosts = posts.filter(post => {
-          //   return post.id !== res.id;
-          // })
-          // setPosts(newPosts)
-      })
-      .catch((error) => {
-          console.log('ERROR: ' + error);
-      })
-  }
 
   return (
     <Router>
       <Header />
       <MainBackground>
           <Switch>
-            <Route exact path='/'>
-              <Home 
-                posts={posts} 
-                setPosts={setPosts}
-                handleDeletePost={handleDeletePost}
-                deletingPost={deletingPost}
-              />
-            </Route>
+
+          <UserContext.Provider value={{users, setUsers, completeData, setCompleteData}}>
+
+            <Route exact path='/' component={Home} />
+
             <Route path='/detail/:id' component={Detail} />
-            <Route path='/create-post' component={() => {
-              return <CreatePost posts={posts} setPosts={setPosts} />
-            }} />
-            <Route path='/edit-post/:id' component={EditPost} />
+
+            <Route path='/create-user' component={CreateUser} />
+
+            <Route path='/edit-user/:id' component={EditUser} />
+
+          </UserContext.Provider>
+
             <Route component={Error} />
+
           </Switch>
       </MainBackground>
     </Router>

@@ -1,4 +1,4 @@
-import {useState, useEffect, useRef} from 'react';
+import {useState, useEffect, useRef, useContext} from 'react';
 import {
     DetailContainer,
     DetailPageTitle,
@@ -7,15 +7,17 @@ import {
     PostDetailBody,
     Lottie,
 } from '../assets/styledComponents/styledDetail'
-
+import { UserContext } from '../assets/utils/UserContext';
 import lottie from 'lottie-web';
 
 
 const Detail = (props) => {
     const idPost = props.match.params.id;
-    const [selectedPost, setSelectedPost] = useState([])
+    const url = 'https://reqres.in/api/users';
+    const [selectedUser, setSelectedUser] = useState([])
     const [fetchIsDone, setFetchIsDone] = useState(false);
     const container = useRef(null);
+    const {users} = useContext(UserContext);
     
     useEffect(() => {
         lottie.loadAnimation({
@@ -23,8 +25,8 @@ const Detail = (props) => {
             renderer: 'gif',
             loop: true,
             autoplay: true,
-            animationData: require('../assets/img/lottieAnimations/postbox.json'),
-            name: "PostBox",
+            animationData: require('../assets/img/lottieAnimations/userDetail.json'),
+            name: "userDetail",
         })
     }, [fetchIsDone])
 
@@ -36,27 +38,33 @@ const Detail = (props) => {
             setFetchIsDone(true)
             async function fetchIdPost() {
             try{
-                const fetchData = await fetch(`https://jsonplaceholder.typicode.com/posts/${idPost}`);
+                const fetchData = await fetch(`${url}/${idPost}`);
                 const fetchJson = await fetchData.json();
-                setSelectedPost(fetchJson);
+                const userData = fetchJson.data;
+                // console.log(userData);
+                const userFind = users.find(user => {
+                    return user.id === userData.id;
+                })
+                const dataReplace = Object.assign(userData, userFind);
+                setSelectedUser(dataReplace);
                 setFetchIsDone(false)
                 fakeLoading()
             } catch {
-                console.log('ERROR!');
+                console.log('ERROR: ');
             }
         }
         fetchIdPost();
-    }, [idPost])
+    }, [idPost, users])
 
 
     return (
         <DetailContainer>
-            <DetailPageTitle> Post Detail </DetailPageTitle>
+            <DetailPageTitle> User Detail </DetailPageTitle>
             { !fetchIsDone ? 
             <Lottie ref={container} /> 
             : <PostContainer>
-                    <PostDetailTitle> { selectedPost.title } </PostDetailTitle>
-                    <PostDetailBody> { selectedPost.body } </PostDetailBody>
+                    <PostDetailTitle> { selectedUser.first_name } { selectedUser.last_name } </PostDetailTitle>
+                    <PostDetailBody> { selectedUser.email } </PostDetailBody>
             </PostContainer>
             }
         </DetailContainer>

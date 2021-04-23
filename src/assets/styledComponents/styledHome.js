@@ -83,7 +83,7 @@ export const ListTitle = styled.p`
 //     justify-content: center;
 // `;
 
-export const PostOptions = styled.div`
+export const UserOptions = styled.div`
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -104,7 +104,7 @@ export const EditBtn = styled.input`
         border: 1px solid red;
     }
     @media (max-width: 1199.98px) {
-        font-size: 1.5em;
+        font-size: 1.2em;
     }
     @media (max-width: 375px) {
         padding: 10px 30%;
@@ -125,7 +125,7 @@ export const DeleteBtn = styled.input`
         border: 1px solid red;
     }
     @media (max-width: 1199.98px) {
-        font-size: 1.5em;
+        font-size: 1.2em;
     }
     @media (max-width: 375px) {
         padding: 10px 5px;

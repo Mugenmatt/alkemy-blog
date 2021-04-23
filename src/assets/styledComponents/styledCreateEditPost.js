@@ -58,6 +58,7 @@ export const InputTitle = styled.input`
     border-radius: 10px;
     margin-bottom: 5%;
     cursor: pointer;
+    pointer-events: ${(props) => props.pointerEvent};
     outline: none;
     :focus {
         border: 1px solid  rgba(255, 0, 55, 1);
@@ -104,13 +105,14 @@ export const InputSubmit = styled.input`
     padding: 2%;
     border: 1px solid transparent;
     border-radius: 10px;
-    background-color: #000;
-    color: #fff;
+    background-color: #fff;
+    border: 1px solid #000;
     cursor: pointer;
     font-size: 2em;
+    transition: 0.3s ease-in-out all;
     :hover {
-        border: 1px solid #000;
         background-color: rgba(255, 0, 55, 1);
+        color: #fff;
     }
     @media (max-width: 767.98px) {
         padding: 4%;
